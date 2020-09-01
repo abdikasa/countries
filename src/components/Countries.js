@@ -1,11 +1,14 @@
 import React from "react";
 
-const Countries = ({ filteredResults }) => {
+const Countries = ({ filteredResults, checkInput }) => {
+  const checkIfEmpty = checkInput.length === 0 ? true : false;
   return (
     <div>
-      {filteredResults.map((country) => {
-        return <li key={country.numericCode}>{country.name}</li>;
-      })}
+      {!checkIfEmpty
+        ? filteredResults.map((country) => {
+            return <li key={country.numericCode}>{country.name}</li>;
+          })
+        : ""}
     </div>
   );
 };

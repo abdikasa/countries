@@ -5,6 +5,10 @@ import Countries from "./components/Countries";
 const App = () => {
   const [filterValue, setFilter] = useState("");
   const [countries, saveCountries] = useState([]);
+  const errorMsg = [
+    [{ name: "no data is found", numericCode: "9998" }],
+    [{ name: "Too many matches, specify another filter", numericCode: "9999" }],
+  ];
 
   const hook = () => {
     axios.get("https://restcountries.eu/rest/v2/all").then((res) => {
@@ -15,10 +19,22 @@ const App = () => {
 
   useEffect(hook, []);
 
-  const filteredResults =
-    filterValue.trim().length === 0
-      ? [{ name: "no data is found", numericCode: "9999" }]
-      : countries.filter((c) => c.name.includes(filterValue));
+  const filteredResults = () => {
+    const getCountries = countries.filter((c) =>
+      c.name.toLowerCase().includes(filterValue.toLowerCase())
+    );
+    console.log(getCountries);
+    if (getCountries.length === 0) {
+      return errorMsg[0];
+    } else if (getCountries.length > 10) {
+      return errorMsg[1];
+    }
+    return getCountries;
+  };
+
+  // filterValue.trim().length === 0
+  //   ? [{ name: "no data is found", numericCode: "9999" }]
+  //   : countries.filter((c) => c.name.includes(filterValue));
 
   const inputChange = (event) => setFilter(event.target.value);
 
@@ -26,7 +42,10 @@ const App = () => {
     <div>
       filter countries here:{" "}
       <input value={filterValue} onChange={inputChange} />
-      <Countries filteredResults={filteredResults}></Countries>
+      <Countries
+        filteredResults={filteredResults()}
+        checkInput={filterValue}
+      ></Countries>
     </div>
   );
 };
