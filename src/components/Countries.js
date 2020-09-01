@@ -58,7 +58,7 @@ const Countries = ({ filteredResults, checkInput }) => {
         {filteredResults.length < 11 && !checkIfEmpty && !oneCountry
           ? filteredResults.map((country) => {
               return (
-                <>
+                <div key={genKey(country.name)}>
                   <li key={country.numericCode}>{country.name} </li>
                   <button onClick={handleClick}>show more</button>
                   {country.show ? (
@@ -66,7 +66,7 @@ const Countries = ({ filteredResults, checkInput }) => {
                   ) : (
                     ""
                   )}
-                </>
+                </div>
               );
             })
           : ""}
