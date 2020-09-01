@@ -13,7 +13,6 @@ const App = () => {
   const hook = () => {
     axios.get("https://restcountries.eu/rest/v2/all").then((res) => {
       saveCountries(res.data);
-      console.log(res.data);
     });
   };
 
@@ -31,10 +30,6 @@ const App = () => {
     }
     return getCountries;
   };
-
-  // filterValue.trim().length === 0
-  //   ? [{ name: "no data is found", numericCode: "9999" }]
-  //   : countries.filter((c) => c.name.includes(filterValue));
 
   const inputChange = (event) => setFilter(event.target.value);
 
