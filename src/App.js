@@ -22,7 +22,6 @@ const App = () => {
     const getCountries = countries.filter((c) =>
       c.name.toLowerCase().includes(filterValue.toLowerCase())
     );
-    console.log(getCountries);
     if (getCountries.length === 0) {
       return errorMsg[0];
     } else if (getCountries.length > 10) {
