@@ -26,11 +26,14 @@ const CountryDetails = ({ country }) => (
 
 const flagStyle = {
   width: "300px",
+  border: "1px solid #000",
 };
 
 //Determines what to output and depends on the filter input search.
-const Details = ({ countries }) => {
-  if (countries.length === 1) {
+const Details = ({ countries, filter }) => {
+  if (filter.trim().length === 0) {
+    return "";
+  } else if (countries.length === 1) {
     return (
       <div>
         <CountryDetails country={countries[0]}></CountryDetails>
@@ -81,7 +84,7 @@ const App = () => {
         Find countries: <input value={filter} onChange={filterChange}></input>
       </div>
       <div>
-        <Details countries={alLCountries}></Details>
+        <Details countries={alLCountries} filter={filter}></Details>
       </div>
     </div>
   );
