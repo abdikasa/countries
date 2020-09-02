@@ -23,14 +23,14 @@ const Details = ({ countries, onClick }) => {
   if (countries.length === 1) {
     return (
       <div>
-        <CountryDetails countries={countries[0].name}></CountryDetails>
+        <CountryDetails country={countries[0]}></CountryDetails>
       </div>
     );
   } else if (countries.length < 11) {
     return (
       <div>
         <ol>
-          {countries.map(() => (
+          {countries.map((country) => (
             <Country
               key={country.name}
               name={country.name}
@@ -65,7 +65,7 @@ const App = () => {
     setFilter(event.target.value);
   };
 
-  const countryChange = () => {
+  const countryChange = (event) => {
     setFilter(event.target.innerText);
   };
 
@@ -73,7 +73,16 @@ const App = () => {
     c.name.toLowerCase().includes(filter)
   );
 
-  return <div></div>;
+  return (
+    <div>
+      <div>
+        Find countries: <input value={filter} onChange={filterChange}></input>
+      </div>
+      <div>
+        <Details countries={alLCountries} onClick={countryChange}></Details>
+      </div>
+    </div>
+  );
 };
 
 export default App;
