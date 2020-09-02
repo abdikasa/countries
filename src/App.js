@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+//Create a Country Component to hold the basic li statement.
 const Country = ({ name, onClick }) => (
   <li key={name} onClick={onClick} value={name}>
     {name}
   </li>
 );
 
+//Handles the main country details when one and only one country is selected
 const CountryDetails = ({ country }) => (
   <div>
     <h1>{country.name}</h1>
@@ -16,6 +18,7 @@ const CountryDetails = ({ country }) => (
   </div>
 );
 
+//Determines what to output and depends on the filter input search.
 const Details = ({ countries, onClick }) => {
   if (countries.length === 1) {
     return (
@@ -45,6 +48,8 @@ const Details = ({ countries, onClick }) => {
     );
   }
 };
+
+//brings everything altogether; i had to change the person's code to use hooks, they were using classes, so good practice for me in converting legacy code.
 
 const App = () => {
   const [countries, setCountries] = useState([]);
