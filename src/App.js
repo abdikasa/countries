@@ -14,12 +14,22 @@ const CountryDetails = ({ country }) => (
     <h1>{country.name}</h1>
     <p>Capital: {country.capital}</p>
     <p>Population: {country.population}</p>
-    <img src={country.flag} alt={country.flag}></img>
+    <h2>Languages</h2>
+    <ul>
+      {country.languages.map((lang) => (
+        <li key={lang.name}>{lang.name}</li>
+      ))}
+    </ul>
+    <img src={country.flag} alt={country.flag} style={flagStyle}></img>
   </div>
 );
 
+const flagStyle = {
+  width: "300px",
+};
+
 //Determines what to output and depends on the filter input search.
-const Details = ({ countries, onClick }) => {
+const Details = ({ countries }) => {
   if (countries.length === 1) {
     return (
       <div>
@@ -31,11 +41,7 @@ const Details = ({ countries, onClick }) => {
       <div>
         <ol>
           {countries.map((country) => (
-            <Country
-              key={country.name}
-              name={country.name}
-              onClick={onClick}
-            ></Country>
+            <Country key={country.name} name={country.name}></Country>
           ))}
         </ol>
       </div>
@@ -43,7 +49,7 @@ const Details = ({ countries, onClick }) => {
   } else {
     return (
       <div>
-        <p>Too many countries, type more.</p>
+        <p>Too many matches, specify another filter</p>
       </div>
     );
   }
@@ -65,10 +71,6 @@ const App = () => {
     setFilter(event.target.value);
   };
 
-  const countryChange = (event) => {
-    setFilter(event.target.innerText);
-  };
-
   const alLCountries = countries.filter((c) =>
     c.name.toLowerCase().includes(filter)
   );
@@ -79,7 +81,7 @@ const App = () => {
         Find countries: <input value={filter} onChange={filterChange}></input>
       </div>
       <div>
-        <Details countries={alLCountries} onClick={countryChange}></Details>
+        <Details countries={alLCountries}></Details>
       </div>
     </div>
   );
